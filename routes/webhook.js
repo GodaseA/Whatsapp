@@ -33,6 +33,7 @@ router.post('/webhook', async (req, res) => {
     console.log(`Inbound from ${fromNumber}: ${text}`);
 
     // 1. forward to your /chat API
+    // 
     const replyText = await getReplyFromChatAPI(fromNumber, text);
 
     // 2. send reply back on WhatsApp — no DB save
