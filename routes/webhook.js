@@ -37,7 +37,8 @@ router.post('/webhook', async (req, res) => {
     const replyText = await getReplyFromChatAPI(fromNumber, text);
 
     // 2. send reply back on WhatsApp — no DB save
-    await sendCustomText(fromNumber, replyText);
+    // await sendCustomText(fromNumber, replyText);
+    await sendCustomText(fromNumber, text);
 
     console.log(`Replied to ${fromNumber}: ${replyText}`);
   } catch (err) {
