@@ -185,4 +185,12 @@ router.post('/send-order-confirmation', async (req, res) => {
   }
 });
 
+router.get('/debug-env', (req, res) => {
+  res.json({
+    hasToken: !!process.env.WEBHOOK_VERIFY_TOKEN,
+    tokenLength: process.env.WEBHOOK_VERIFY_TOKEN?.length || 0
+  });
+});
+
+
 module.exports = router;
