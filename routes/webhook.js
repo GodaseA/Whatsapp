@@ -35,10 +35,10 @@ router.post("/webhook", async (req, res) => {
     // 1. forward to your /chat API
     //
     const replyText = await getReplyFromChatAPI(fromNumber, text);
-    const hello = "hii broo";
+    // const hello = "hii broo";
     // 2. send reply back on WhatsApp — no DB save
-    // await sendCustomText(fromNumber, replyText);
-    await sendCustomText(fromNumber, hello);
+    await sendCustomText(fromNumber, replyText);
+    // await sendCustomText(fromNumber, hello);
 
     console.log(`Replied to ${fromNumber}: ${replyText}`);
   } catch (err) {
@@ -97,10 +97,16 @@ router.post("/send-order-confirmation", async (req, res) => {
   }
 });
 
-router.get("/debug-env", (req, res) => {
+router.get('/debug-env', (req, res) => {
   res.json({
-    hasToken: !!process.env.WEBHOOK_VERIFY_TOKEN,
-    tokenLength: process.env.WEBHOOK_VERIFY_TOKEN?.length || 0,
+    hasWebhookToken: !!process.env.WEBHOOK_VERIFY_TOKEN,
+    hasWhatsappToken: !!process.env.WHATSAPP_TOKEN,
+    whatsappTokenLength: process.env.WHATSAPP_TOKEN?.length || 0,
+    hasPhoneNumberId: !!process.env.WHATSAPP_PHONE_NUMBER_ID,
+    phoneNumberId: process.env.WHATSAPP_PHONE_NUMBER_ID || null,
+    hasApiVersion: !!process.env.WHATSAPP_API_VERSION,
+    apiVersion: process.env.WHATSAPP_API_VERSION || null,
+    hasExternalApiUrl: !!process.env.EXTERNAL_API_URL
   });
 });
 
